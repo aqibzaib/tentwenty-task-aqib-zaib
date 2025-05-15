@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${workSans.variable} antialiased`}
       >
         <Header />
         <main className="max-w-[1440px] border border-red-900 mx-auto">

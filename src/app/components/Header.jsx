@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white shadow-sm max-w-[1400px] mx-auto border border-red-900">
-      <div className="pt-[32px] pr-[33px] pb-[33px] pl-[39px] flex items-center justify-between">
+      <div className="pt-[32px] pr-[33px] pb-[33px] pl-[39px] flex items-center justify-between font-work-sans">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-5">
           {navLinks.map((link) => (
@@ -24,7 +24,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <button className="border border-[#000000] bg-[#FFFCFA] flex items-center  gap-4 font-[400] text-[16px] leading-[110%] tracking-[0px] pt-[10px] pb-[8px] pl-[16px] pr-[12px]">
+        <button className="border border-[#000000] bg-[#FFFCFA] flex items-center  gap-4 font-[400] text-[16px] leading-[110%] tracking-[0px] pt-[10px] pb-[8px] pl-[16px] pr-[12px] font-work-sans ">
           Contact us
           <img src="/icons/rightArrow.svg" alt="Arrow" />
         </button>
@@ -35,7 +35,7 @@ export default function Header() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
-          {isOpen ? "X" : "Menu"}
+          {isOpen ? "X" : <img src="/icons/menu.svg" alt="Menu Icon" />}
         </button>
       </div>
 
