@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="w-full bg-white shadow-sm max-w-[1400px] mx-auto border border-red-900">
-      <div className="pt-[32px] pr-[33px] pb-[33px] pl-[39px] flex items-center justify-between font-work-sans">
+      <div className="pt-[21px] md:pt-[32px] pr-[24px] md:pr-[33px] pb-[24px] md:pb-[33px] pl-[27.6px] md:pl-[39px] flex items-center justify-between font-work-sans">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-5">
           {navLinks.map((link) => (
