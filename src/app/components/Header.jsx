@@ -9,10 +9,11 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="w-full bg-white shadow-sm max-w-[1400px] mx-auto border border-red-900">
-      <div className="pt-[21px] md:pt-[32px] pr-[24px] md:pr-[33px] pb-[24px] md:pb-[33px] pl-[27.6px] md:pl-[39px] flex items-center justify-between font-work-sans">
+    <header className="mx-auto w-full max-w-[1400px] border border-red-900 bg-white shadow-sm">
+      <div className="font-work-sans flex items-center justify-between pt-[21px] pr-[24px] pb-[24px] pl-[27.6px] md:pt-[32px] md:pr-[33px] md:pb-[33px] md:pl-[39px]">
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-5">
+
+        <nav className="hidden space-x-5 md:flex">
           {navLinks.map((link) => (
             <a
               key={link}
@@ -24,7 +25,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <button className="border border-[#000000] bg-[#FFFCFA] flex items-center  gap-4 font-[400] text-[16px] leading-[110%] tracking-[0px] pt-[10px] pb-[8px] pl-[16px] pr-[12px] font-work-sans ">
+        <button className="font-work-sans flex items-center gap-4 border border-[#000000] bg-[#FFFCFA] pt-[10px] pr-[12px] pb-[8px] pl-[16px] text-[16px] leading-[110%] font-[400] tracking-[0px]">
           Contact us
           <img src="/icons/rightArrow.svg" alt="Arrow" />
         </button>
@@ -41,7 +42,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-4 pb-4">
+        <div className="px-4 pb-4 md:hidden">
           <nav className="flex flex-col space-y-2">
             {navLinks.map((link) => (
               <a
