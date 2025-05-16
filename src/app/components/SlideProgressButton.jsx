@@ -55,7 +55,7 @@ export default function SlideProgressButton({
       className="group absolute right-8 bottom-8 z-50"
       aria-label="Next Slide"
     >
-      <div className="relative flex h-[138px] w-[138px] items-center justify-center border border-[#EEF4F9] p-6">
+      <div className="relative flex h-[138px] w-[138px] items-center justify-center p-6 before:absolute before:inset-0 before:border before:border-[#2E3C4C] after:absolute after:inset-0 after:z-10 after:border-[4px] after:border-[#EEF4F9]">
         {nextImage && (
           <div className="relative flex h-[97px] w-[97px] items-center justify-center overflow-hidden">
             <AnimatePresence>
