@@ -28,10 +28,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${workSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${workSans.variable} overflow-x-hidden antialiased`}
       >
-        <Header />
-        <main className="mx-auto max-w-[1440px] border border-red-900">
+        <main className="mx-auto max-w-[1440px]">
+          <Header />
           {children}
         </main>
       </body>

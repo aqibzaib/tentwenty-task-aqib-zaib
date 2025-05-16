@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="mx-auto max-w-[1400px]">
-      <div className="absolute top-[21px] max-w-[1400px] w-full border border-red-900 bg-white shadow-sm">
+      <div className="absolute top-[21px] z-10 w-full max-w-[1400px] bg-white shadow-sm">
         <div className="font-work-sans flex items-center justify-between pt-[21px] pr-[24px] pb-[24px] pl-[27.6px] md:pt-[32px] md:pr-[33px] md:pb-[33px] md:pl-[39px]">
           {/* Desktop Navigation */}
 
