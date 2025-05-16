@@ -1,109 +1,111 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function SlideProgressButton({
   onNext,
   duration = 5000,
   activeIndex,
   slides = [],
+  disabled = false, // add this
 }) {
-  const controls = useAnimation();
   const timeoutRef = useRef(null);
-  const firstLoad = useRef(true);
+  const animationFrameRef = useRef(null); // <-- Add this
+  const [progress, setProgress] = useState(0);
 
   const nextIndex = (activeIndex + 1) % slides.length;
   const nextImage = slides[nextIndex]?.image || "";
 
-  const width = 138;
-  const height = 138;
+  const size = 138;
   const baseStroke = 4;
   const animatedStroke = 8;
-  const perimeter = 2 * (width - animatedStroke + height - animatedStroke);
+  const borderInset = animatedStroke / 2;
+  const perimeter = 2 * (size - animatedStroke) + 2 * (size - animatedStroke);
 
   useEffect(() => {
-    if (firstLoad.current) {
-      firstLoad.current = false;
-    } else {
-      controls.set({ strokeDashoffset: perimeter });
-      controls.start({
-        strokeDashoffset: 0,
-        transition: { duration: duration / 1000, ease: "linear" },
-      });
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(onNext, duration);
+    // Cancel any previous animation frame before starting a new one
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
     }
+    setProgress(perimeter); // Reset progress instantly
+
+    const start = performance.now();
+    function animate(now) {
+      const elapsed = now - start;
+      const pct = Math.min(elapsed / duration, 1);
+      setProgress(perimeter * (1 - pct));
+      if (pct < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      }
+    }
+    animationFrameRef.current = requestAnimationFrame(animate);
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(onNext, duration);
 
     return () => {
-      controls.stop();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (animationFrameRef.current)
+        cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [activeIndex, onNext, duration, controls, perimeter]);
+  }, [activeIndex, perimeter, duration, onNext]);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    if (disabled) return; // Ignore clicks if disabled
+    e.stopPropagation();
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    controls.set({ strokeDashoffset: perimeter });
-    controls.start({
-      strokeDashoffset: 0,
-      transition: { duration: duration / 1000, ease: "linear" },
-    });
-
+    if (animationFrameRef.current)
+      cancelAnimationFrame(animationFrameRef.current);
     onNext();
   };
 
   return (
     <section
       onClick={handleClick}
-      className="group absolute right-8 bottom-8 z-50 cursor-pointer"
+      className={`group absolute right-8 bottom-8 z-50 cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
       aria-label="Next Slide"
     >
       <div className="relative flex items-center justify-center p-6">
         <svg
-          className="pointer-events-none absolute inset-0"
-          width={width}
-          height={height}
-          viewBox={`0 0 ${width} ${height}`}
+          className="absolute inset-0"
+          width={size}
+          height={size}
+          viewBox={`0 0 ${size} ${size}`}
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Static background border */}
+          {/* Background border */}
           <rect
-            x={baseStroke / 4}
-            y={baseStroke / 4}
-            width={width - baseStroke}
-            height={height - baseStroke}
+            x={baseStroke / 2}
+            y={baseStroke / 2}
+            width={size - baseStroke}
+            height={size - baseStroke}
             stroke="#EEF4F9"
             strokeWidth={baseStroke}
             opacity="0.5"
           />
           {/* Animated progress border */}
           <motion.rect
-            x={animatedStroke / 2}
-            y={animatedStroke / 2}
-            width={width - animatedStroke}
-            height={height - animatedStroke}
+            x={borderInset}
+            y={borderInset}
+            width={size - animatedStroke}
+            height={size - animatedStroke}
             stroke="#EEF4F9"
             strokeWidth={animatedStroke}
             strokeDasharray={perimeter}
-            strokeDashoffset={perimeter}
+            strokeDashoffset={progress}
             strokeLinecap="round"
-            animate={controls}
+            transition={{ type: "tween", ease: "linear", duration: 0 }}
           />
         </svg>
 
-        {/* Slide thumbnail */}
         {nextImage && (
           <div className="relative flex h-[97px] w-[97px] items-center justify-center overflow-hidden">
             <AnimatePresence>
               <motion.div
                 key={activeIndex}
-                initial={
-                  firstLoad.current
-                    ? false
-                    : { clipPath: "inset(40% 0% 40% 0%)" }
-                }
+                initial={{ clipPath: "inset(40% 0% 40% 0%)" }}
                 animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
@@ -119,14 +121,10 @@ export default function SlideProgressButton({
           </div>
         )}
 
-        {/* Next button */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center">
+        <div className="absolute inset-0 z-30 flex items-center justify-center">
           <button
-            className="font-work-sans text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9] select-none"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleClick();
-            }}
+            className="font-work-sans pointer-events-none text-[16px] text-[#EEF4F9] select-none"
+            disabled={disabled}
           >
             Next
           </button>

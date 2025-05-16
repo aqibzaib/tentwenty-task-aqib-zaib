@@ -38,6 +38,7 @@ export default function HeroBanner() {
   const firstLoad = useRef(true);
 
   const handleNext = () => {
+    if (animating) return; // Prevent multiple calls
     if (swiperRef.current) swiperRef.current.slideNext();
   };
 
@@ -56,7 +57,7 @@ export default function HeroBanner() {
     animationTimeout.current = setTimeout(() => {
       setAnimating(false);
       setPrevIndex(null);
-    }, 2000);
+    }, 0); // Adjusted to 0 for immediate reset
   }
 
   useEffect(() => {
@@ -116,7 +117,7 @@ export default function HeroBanner() {
               </AnimatePresence>
 
               {/* Overlay */}
-              <div className="absolute inset-0 z-30 " />
+              <div className="absolute inset-0 z-30" />
             </div>
           </SwiperSlide>
         ))}
@@ -124,9 +125,10 @@ export default function HeroBanner() {
 
       {/* Slide Control Button */}
       <SlideProgressButton
+        key={activeIndex}
         onNext={handleNext}
         activeIndex={activeIndex}
-        slides={slides} // pass the slides array here
+        slides={slides}
         duration={5000}
       />
     </div>
