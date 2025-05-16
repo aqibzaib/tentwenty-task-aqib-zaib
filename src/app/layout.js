@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${workSans.variable} overflow-x-hidden antialiased`}
       >
         <main className="mx-auto max-w-[1440px]">
-          {/* <Header /> */}
+          <Header />
           {children}
         </main>
       </body>
