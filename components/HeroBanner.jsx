@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SlideProgressButton from "./SlideProgressButton"; // <- Import here
 import SlideDetails from "./SlideDetails";
 import SlideWithProgress from "./SlideWithProgress";
-import HeroSlideContent from "./HeroBannerContent";
+import HeroSlideContent from "./HeroSlideContent";
 
 const slides = [
   {

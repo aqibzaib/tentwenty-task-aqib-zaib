@@ -10,8 +10,8 @@ export default function SlideWithProgress({
   disabled = false,
 }) {
   return (
-    <div className="absolute top-[70%] left-0 z-60 flex w-full justify-center">
-      <div className="flex w-full max-w-[345px] items-center justify-between rounded ">
+    <div className="absolute top-[70%] left-[9.5%] z-60 w-full">
+      <div className="flex w-full max-w-[345px] items-center justify-between rounded">
         <SlideProgressButton
           onNext={onNext}
           duration={duration}
