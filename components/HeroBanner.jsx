@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SlideProgressButton from "./SlideProgressButton"; // <- Import here
 import SlideDetails from "./SlideDetails";
 import SlideWithProgress from "./SlideWithProgress";
+import HeroSlideContent from "./HeroBannerContent";
 
 const slides = [
   {
@@ -176,6 +177,7 @@ export default function HeroBanner() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <HeroSlideContent />
 
       <SlideWithProgress
         onNext={goNext}
