@@ -27,6 +27,42 @@ const slides = [
     subtitle: "Framer Motion",
     image: "/images/hero-background2.jpg",
   },
+  {
+    id: 4,
+    title: "Welcome",
+    subtitle: "Intro",
+    image: "/images/hero-background.webp",
+  },
+  {
+    id: 5,
+    title: "Stunning",
+    subtitle: "Transitions",
+    image: "/images/hero-background1.jpg",
+  },
+  {
+    id: 6,
+    title: "Built With",
+    subtitle: "Framer Motion",
+    image: "/images/hero-background2.jpg",
+  },
+  {
+    id: 7,
+    title: "Welcome",
+    subtitle: "Intro",
+    image: "/images/hero-background.webp",
+  },
+  {
+    id: 8,
+    title: "Stunning",
+    subtitle: "Transitions",
+    image: "/images/hero-background1.jpg",
+  },
+  {
+    id: 9,
+    title: "Built With",
+    subtitle: "Framer Motion",
+    image: "/images/hero-background2.jpg",
+  },
 ];
 
 export default function HeroBanner() {
@@ -82,7 +118,7 @@ export default function HeroBanner() {
             <div className="relative h-screen w-full overflow-hidden">
               {/* Previous Image */}
               <AnimatePresence>
-                {animating && prevIndex === index && (
+                {!firstLoad && animating && prevIndex === index && (
                   <motion.img
                     key={"prev-" + id}
                     src={image}
@@ -98,22 +134,32 @@ export default function HeroBanner() {
 
               {/* Active Image */}
               <AnimatePresence>
-                {activeIndex === index && (
-                  <motion.div
-                    key={"active-" + id}
-                    initial={{ clipPath: "inset(40% 0% 40% 0%)" }}
-                    animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1.2, ease: "easeInOut" }}
-                    className="absolute inset-0 z-20"
-                  >
-                    <img
-                      src={image}
-                      alt={title}
-                      className="h-full w-full object-cover"
-                    />
-                  </motion.div>
-                )}
+                {activeIndex === index &&
+                  (firstLoad && index === 0 ? (
+                    // No animation for first image
+                    <div className="absolute inset-0 z-20">
+                      <img
+                        src={image}
+                        alt={title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <motion.div
+                      key={"active-" + id}
+                      initial={{ clipPath: "inset(40% 0% 40% 0%)" }}
+                      animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1.2, ease: "easeInOut" }}
+                      className="absolute inset-0 z-20"
+                    >
+                      <img
+                        src={image}
+                        alt={title}
+                        className="h-full w-full object-cover"
+                      />
+                    </motion.div>
+                  ))}
               </AnimatePresence>
 
               {/* Overlay */}
