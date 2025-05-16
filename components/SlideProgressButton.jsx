@@ -8,10 +8,10 @@ export default function SlideProgressButton({
   duration = 5000,
   activeIndex,
   slides = [],
-  disabled = false, // add this
+  disabled = false,
 }) {
   const timeoutRef = useRef(null);
-  const animationFrameRef = useRef(null); // <-- Add this
+  const animationFrameRef = useRef(null);
   const [progress, setProgress] = useState(0);
 
   const nextIndex = (activeIndex + 1) % slides.length;
@@ -24,11 +24,10 @@ export default function SlideProgressButton({
   const perimeter = 2 * (size - animatedStroke) + 2 * (size - animatedStroke);
 
   useEffect(() => {
-    // Cancel any previous animation frame before starting a new one
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
-    setProgress(perimeter); // Reset progress instantly
+    setProgress(perimeter);
 
     const start = performance.now();
     function animate(now) {
@@ -52,7 +51,7 @@ export default function SlideProgressButton({
   }, [activeIndex, perimeter, duration, onNext]);
 
   const handleClick = (e) => {
-    if (disabled) return; // Ignore clicks if disabled
+    if (disabled) return;
     e.stopPropagation();
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (animationFrameRef.current)
@@ -63,7 +62,7 @@ export default function SlideProgressButton({
   return (
     <section
       onClick={handleClick}
-      className={`group  cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
+      className={`group cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
       aria-label="Next Slide"
     >
       <div className="relative flex items-center justify-center p-6">

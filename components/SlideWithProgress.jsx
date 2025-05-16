@@ -20,7 +20,7 @@ export default function SlideWithProgress({
           disabled={disabled}
         />
         <div className="w-full max-w-[174px]">
-          <SlideDetails activeIndex={activeIndex} total={slides.length} />
+          <SlideDetails active={activeIndex} total={slides.length} />
         </div>
       </div>
     </div>
