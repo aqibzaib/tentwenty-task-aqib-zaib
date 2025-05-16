@@ -25,7 +25,10 @@ const ProductHighlight = () => {
   };
 
   return (
-    <section ref={ref} className="mx-auto max-w-4xl px-6 py-16 text-center">
+    <section
+      ref={ref}
+      className="mx-auto max-w-4xl px-6 pt-[82px] pb-[15px] text-center md:pt-[153px] md:pb-[30px]"
+    >
       <motion.div
         variants={container}
         initial="hidden"
@@ -40,7 +43,7 @@ const ProductHighlight = () => {
         </motion.h2>
         <motion.p
           variants={item}
-          className="font-work-sans text-center text-[16px] leading-[100%] font-normal tracking-normal text-[#7A7777] md:text-[24px]"
+          className="font-work-sans pb-[42px] text-center text-[16px] leading-[100%] font-normal tracking-normal text-[#7A7777] md:pb-[100px] md:text-[24px]"
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

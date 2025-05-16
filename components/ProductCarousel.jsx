@@ -10,52 +10,54 @@ import SlideText from "./SlideText";
 const slides = [
   {
     image: "https://picsum.photos/id/1015/1200/800",
-    title: "Client 1",
+    title: "Aaliyah Khan",
     subtitle: "Dubai, United Arab Emirates",
   },
   {
     image: "https://picsum.photos/id/1016/1200/800",
-    title: "Client 2",
+    title: "James Miller",
     subtitle: "New York, United States",
   },
   {
     image: "https://picsum.photos/id/1018/1200/800",
-    title: "Client 3",
+    title: "Sophie Turner",
     subtitle: "London, United Kingdom",
   },
   {
     image: "https://picsum.photos/id/1020/1200/800",
-    title: "Client 4",
+    title: "Étienne Dupont",
     subtitle: "Paris, France",
   },
   {
     image: "https://picsum.photos/id/1024/1200/800",
-    title: "Client 5",
+    title: "Li Wei",
     subtitle: "Singapore",
   },
   {
     image: "https://picsum.photos/id/1035/1200/800",
-    title: "Client 6",
+    title: "Jack Thompson",
     subtitle: "Sydney, Australia",
   },
   {
     image: "https://picsum.photos/id/1040/1200/800",
-    title: "Client 7",
+    title: "Amelia Chen",
     subtitle: "Toronto, Canada",
   },
   {
     image: "https://picsum.photos/id/1052/1200/800",
-    title: "Client 8",
+    title: "Lukas Schneider",
     subtitle: "Munich, Germany",
   },
   {
     image: "https://picsum.photos/id/1062/1200/800",
-    title: "Client 9",
+    title: "Faisal Al-Mansoori",
     subtitle: "Doha, Qatar",
   },
 ];
+
 const ProductCarousel = () => {
-  const [centerIndex, setCenterIndex] = useState(2);
+  const [centerIndex, setCenterIndex] = useState(5);
+  const [showCursor, setShowCursor] = useState(false); // Track cursor visibility
   const containerRef = useRef(null);
 
   const mouseX = useMotionValue(0);
@@ -76,10 +78,10 @@ const ProductCarousel = () => {
   const getTransform = (index) => {
     const offset = index - centerIndex;
     if (offset === 0) {
-      return "translateY(-40px) translateZ(0px) rotateZ(0deg) scale(1)";
+      return "translateY(-30px) translateZ(0px) rotateZ(0deg) scale(1)";
     } else if (Math.abs(offset) === 1) {
       const direction = offset < 0 ? -1 : 1;
-      return `translateX(${direction * 475}px) translateY(40px) translateZ(-80px) rotateZ(${direction * 15}deg) scale(0.9)`;
+      return `translateX(${direction * 525}px) translateY(40px) translateZ(-80px) rotateZ(${direction * 15}deg) scale(1)`;
     } else {
       return "scale(0)";
     }
@@ -90,28 +92,40 @@ const ProductCarousel = () => {
       <ProductHighlight />
       <div
         ref={containerRef}
-        className="relative h-[520px] w-full perspective-[1200px]"
+        className="relative h-[620px] w-full perspective-[1200px]"
         onMouseMove={handleMouseMove}
+        onMouseEnter={() => setShowCursor(true)} // Show on enter
+        onMouseLeave={() => setShowCursor(false)} // Hide on leave
       >
         <div className="transform-style-preserve-3d relative flex h-full w-full items-center justify-center">
-          {slides.map((slide, index) => (
-            <Slide
-              key={index}
-              slide={slide}
-              index={index}
-              centerIndex={centerIndex}
-              setCenterIndex={setCenterIndex}
-              slidesLength={slides.length}
-              getTransform={getTransform}
-            />
-          ))}
-        </div>
+          {slides.map((slide, index) => {
+            // Calculate offset with wrap-around for infinite loop
+            let offset = index - centerIndex;
+            if (offset > Math.floor(slides.length / 2)) offset -= slides.length;
+            if (offset < -Math.floor(slides.length / 2))
+              offset += slides.length;
 
-        <FloatingCursorDot animatedX={animatedX} animatedY={animatedY} />
+            if (Math.abs(offset) > 1) return null;
 
-        <div>
-          <SlideText centerIndex={centerIndex} slides={slides} />
+            return (
+              <Slide
+                key={index}
+                slide={slide}
+                index={index}
+                centerIndex={centerIndex}
+                setCenterIndex={setCenterIndex}
+                slidesLength={slides.length}
+                getTransform={getTransform}
+              />
+            );
+          })}
         </div>
+        {showCursor && (
+          <FloatingCursorDot animatedX={animatedX} animatedY={animatedY} />
+        )}
+      </div>
+      <div>
+        <SlideText centerIndex={centerIndex} slides={slides} />
       </div>
     </>
   );
