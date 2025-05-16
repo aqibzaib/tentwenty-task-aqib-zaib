@@ -18,13 +18,13 @@ export default function SlideDetails({ active, total }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="font-work-sans text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9]"
+          className="font-work-sans text-[14px] md:text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9]"
         >
           {current}
         </motion.p>
       </AnimatePresence>
-      <hr className="h-1 w-full max-w-[103px] bg-[#EEF4F9] text-[#EEF4F9]" />
-      <p className="font-work-sans text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9]">
+      <hr className="h-1 w-full max-w-[100px] md:max-w-[103px] bg-[#EEF4F9] text-[#EEF4F9]" />
+      <p className="font-work-sans text-[14px] md:text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9]">
         {totalStr}
       </p>
     </div>

@@ -102,7 +102,7 @@ export default function HeroBanner() {
     animationTimeout.current = setTimeout(() => {
       setAnimating(false);
       setPrevIndex(null);
-    }, 0); // Adjusted to 0 for immediate reset
+    }, 0); 
   }
 
   useEffect(() => {

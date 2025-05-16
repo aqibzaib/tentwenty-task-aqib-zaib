@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function SlideProgressButton({
@@ -17,11 +17,13 @@ export default function SlideProgressButton({
   const nextIndex = (activeIndex + 1) % slides.length;
   const nextImage = slides[nextIndex]?.image || "";
 
-  const size = 138;
+  // Fixed values for a 138x138 coordinate system
   const baseStroke = 4;
   const animatedStroke = 8;
   const borderInset = animatedStroke / 2;
-  const perimeter = 2 * (size - animatedStroke) + 2 * (size - animatedStroke);
+  const perimeter = useMemo(() => {
+    return 2 * (138 - animatedStroke) + 2 * (138 - animatedStroke);
+  }, []);
 
   useEffect(() => {
     if (animationFrameRef.current) {
@@ -62,15 +64,13 @@ export default function SlideProgressButton({
   return (
     <section
       onClick={handleClick}
-      className={`group cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
+      className={` group cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
       aria-label="Next Slide"
     >
-      <div className="relative flex h-[138px] w-[138px] items-center justify-center">
+      <div className="relative flex h-[115px] w-[115px] items-center justify-center md:h-[138px] md:w-[138px]">
         <svg
-          className="absolute inset-0"
-          width={size}
-          height={size}
-          viewBox={`0 0 ${size} ${size}`}
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 138 138"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -78,8 +78,8 @@ export default function SlideProgressButton({
           <rect
             x={baseStroke / 2}
             y={baseStroke / 2}
-            width={size - baseStroke}
-            height={size - baseStroke}
+            width={138 - baseStroke}
+            height={138 - baseStroke}
             stroke="#EEF4F9"
             strokeWidth={baseStroke}
             opacity="0.5"
@@ -88,8 +88,8 @@ export default function SlideProgressButton({
           <motion.rect
             x={borderInset}
             y={borderInset}
-            width={size - animatedStroke}
-            height={size - animatedStroke}
+            width={138 - animatedStroke}
+            height={138 - animatedStroke}
             stroke="#EEF4F9"
             strokeWidth={animatedStroke}
             strokeDasharray={perimeter}
@@ -113,7 +113,7 @@ export default function SlideProgressButton({
                 <img
                   src={nextImage}
                   alt="Next"
-                  className="h-[97px] w-[97px] object-cover"
+                  className="h-[77.5px] w-[77.5px] md:h-[97px] md:w-[97px] object-cover"
                 />
               </motion.div>
             </AnimatePresence>

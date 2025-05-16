@@ -11,7 +11,7 @@ export default function SlideWithProgress({
 }) {
   return (
     <div className="absolute top-[70%] left-[9.5%] z-60 w-full">
-      <div className="flex w-full max-w-[345px] items-center justify-between rounded">
+      <div className="flex w-full max-w-[345px] flex-row items-center justify-start gap-3 sm:justify-between sm:gap-0">
         <SlideProgressButton
           onNext={onNext}
           duration={duration}
