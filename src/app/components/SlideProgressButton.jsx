@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import Image from "next/image";
 
 export default function SlideProgressButton({
   onNext,
@@ -12,17 +11,22 @@ export default function SlideProgressButton({
 }) {
   const controls = useAnimation();
   const timeoutRef = useRef(null);
-  const firstLoad = useRef(true); // 👈 New
+  const firstLoad = useRef(true);
 
   const nextIndex = (activeIndex + 1) % slides.length;
   const nextImage = slides[nextIndex]?.image || "";
 
+  const width = 138;
+  const height = 138;
+  const baseStroke = 4;
+  const animatedStroke = 8;
+  const perimeter = 2 * (width - animatedStroke + height - animatedStroke);
+
   useEffect(() => {
-    // Skip animation on first load
     if (firstLoad.current) {
       firstLoad.current = false;
     } else {
-      controls.set({ strokeDashoffset: 100 });
+      controls.set({ strokeDashoffset: perimeter });
       controls.start({
         strokeDashoffset: 0,
         transition: { duration: duration / 1000, ease: "linear" },
@@ -36,11 +40,11 @@ export default function SlideProgressButton({
       controls.stop();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [activeIndex, onNext, duration, controls]);
+  }, [activeIndex, onNext, duration, controls, perimeter]);
 
   const handleClick = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    controls.set({ strokeDashoffset: 100 });
+    controls.set({ strokeDashoffset: perimeter });
     controls.start({
       strokeDashoffset: 0,
       transition: { duration: duration / 1000, ease: "linear" },
@@ -52,10 +56,44 @@ export default function SlideProgressButton({
   return (
     <section
       onClick={handleClick}
-      className="group absolute right-8 bottom-8 z-50"
+      className="group absolute right-8 bottom-8 z-50 cursor-pointer"
       aria-label="Next Slide"
     >
-      <div className="relative flex h-[138px] w-[138px] items-center justify-center p-6 before:absolute before:inset-0 before:border before:border-[#2E3C4C] after:absolute after:inset-0 after:z-10 after:border-[4px] after:border-[#EEF4F9]">
+      <div className="relative flex items-center justify-center p-6">
+        <svg
+          className="pointer-events-none absolute inset-0"
+          width={width}
+          height={height}
+          viewBox={`0 0 ${width} ${height}`}
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Static background border */}
+          <rect
+            x={baseStroke / 4}
+            y={baseStroke / 4}
+            width={width - baseStroke}
+            height={height - baseStroke}
+            stroke="#EEF4F9"
+            strokeWidth={baseStroke}
+            opacity="0.5"
+          />
+          {/* Animated progress border */}
+          <motion.rect
+            x={animatedStroke / 2}
+            y={animatedStroke / 2}
+            width={width - animatedStroke}
+            height={height - animatedStroke}
+            stroke="#EEF4F9"
+            strokeWidth={animatedStroke}
+            strokeDasharray={perimeter}
+            strokeDashoffset={perimeter}
+            strokeLinecap="round"
+            animate={controls}
+          />
+        </svg>
+
+        {/* Slide thumbnail */}
         {nextImage && (
           <div className="relative flex h-[97px] w-[97px] items-center justify-center overflow-hidden">
             <AnimatePresence>
@@ -80,10 +118,15 @@ export default function SlideProgressButton({
             </AnimatePresence>
           </div>
         )}
-        <div className="absolute inset-0 z-70 flex flex-col items-center justify-center">
+
+        {/* Next button */}
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center">
           <button
-            className="font-work-sans cursor-pointer text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9] select-none"
-            onClick={handleClick}
+            className="font-work-sans text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9] select-none"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleClick();
+            }}
           >
             Next
           </button>
