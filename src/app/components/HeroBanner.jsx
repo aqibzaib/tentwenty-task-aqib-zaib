@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
-import { motion, AnimatePresence } from "framer-motion";
-import SlideProgressButton from "./SlideProgressButton"; // <- Import here
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/effect-fade";
+import { Autoplay, EffectFade } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SlideProgressButton from "./SlideProgressButton"; // <- Import here
+import SlideDetails from "./SlideDetails";
 
 const slides = [
   {
@@ -177,6 +178,8 @@ export default function HeroBanner() {
         slides={slides}
         duration={5000}
       />
+  
+      <SlideDetails />
     </div>
   );
 }
