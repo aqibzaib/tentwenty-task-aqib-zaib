@@ -9,47 +9,56 @@ import SlideText from "./SlideText";
 
 const slides = [
   {
-    image: "https://picsum.photos/id/1015/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1745752727106-356ebbd8e297?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Aaliyah Khan",
     subtitle: "Dubai, United Arab Emirates",
   },
   {
-    image: "https://picsum.photos/id/1016/1200/800",
+    image:
+      "https://plus.unsplash.com/premium_photo-1688901653255-88753dbcb6ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "James Miller",
     subtitle: "New York, United States",
   },
   {
-    image: "https://picsum.photos/id/1018/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1532135468830-e51699205b70?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Sophie Turner",
     subtitle: "London, United Kingdom",
   },
   {
-    image: "https://picsum.photos/id/1020/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1618059485046-161ace8b928d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // vivid colors
     title: "Étienne Dupont",
     subtitle: "Paris, France",
   },
   {
-    image: "https://picsum.photos/id/1024/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1745276243806-273cf314e281?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // high contrast
     title: "Li Wei",
     subtitle: "Singapore",
   },
   {
-    image: "https://picsum.photos/id/1035/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1744400363852-d2eb4908b9a8?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Jack Thompson",
     subtitle: "Sydney, Australia",
   },
   {
-    image: "https://picsum.photos/id/1040/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1569511850437-6dfab062c00b?q=80&w=1959&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Amelia Chen",
     subtitle: "Toronto, Canada",
   },
   {
-    image: "https://picsum.photos/id/1052/1200/800",
+    image:
+      "https://images.unsplash.com/photo-1745752727106-356ebbd8e297?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Lukas Schneider",
     subtitle: "Munich, Germany",
   },
   {
-    image: "https://picsum.photos/id/1062/1200/800",
+    image:
+      "https://plus.unsplash.com/premium_photo-1688901653255-88753dbcb6ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Faisal Al-Mansoori",
     subtitle: "Doha, Qatar",
   },
@@ -57,7 +66,7 @@ const slides = [
 
 const ProductCarousel = () => {
   const [centerIndex, setCenterIndex] = useState(5);
-  const [showCursor, setShowCursor] = useState(false); // Track cursor visibility
+  const [showCursor, setShowCursor] = useState(false);
   const containerRef = useRef(null);
 
   const mouseX = useMotionValue(0);

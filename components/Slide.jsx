@@ -35,7 +35,7 @@ const Slide = ({
       <img
         src={slide.image}
         alt={`Image ${index}`}
-        className="pointer-events-none h-[619.21px] w-[434.9px] rounded-2xl"
+        className="pointer-events-none h-[619.21px] w-[434.9px] rounded-2xl object-fit"
       />
     </motion.div>
   );
