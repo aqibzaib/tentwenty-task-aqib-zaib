@@ -101,7 +101,7 @@ const ProductCarousel = () => {
       <ProductHighlight />
       <div
         ref={containerRef}
-        className="relative h-[620px] w-full perspective-[1200px]"
+        className="relative hidden h-[620px] w-full perspective-[1200px] lg:block"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setShowCursor(true)} // Show on enter
         onMouseLeave={() => setShowCursor(false)} // Hide on leave
