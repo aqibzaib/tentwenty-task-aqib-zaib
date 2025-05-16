@@ -65,7 +65,7 @@ export default function SlideProgressButton({
       className={`group cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
       aria-label="Next Slide"
     >
-      <div className="relative flex items-center justify-center p-6">
+      <div className="relative flex h-[138px] w-[138px] items-center justify-center">
         <svg
           className="absolute inset-0"
           width={size}
@@ -100,7 +100,7 @@ export default function SlideProgressButton({
         </svg>
 
         {nextImage && (
-          <div className="relative flex h-[97px] w-[97px] items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center">
             <AnimatePresence>
               <motion.div
                 key={activeIndex}
@@ -108,12 +108,12 @@ export default function SlideProgressButton({
                 animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="absolute inset-0 z-20"
+                className="absolute inset-0 z-20 flex items-center justify-center"
               >
                 <img
                   src={nextImage}
                   alt="Next"
-                  className="h-full w-full object-cover"
+                  className="h-[97px] w-[97px] object-cover"
                 />
               </motion.div>
             </AnimatePresence>
