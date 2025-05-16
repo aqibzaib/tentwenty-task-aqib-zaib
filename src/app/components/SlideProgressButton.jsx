@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 
 export default function SlideProgressButton({
@@ -53,17 +53,26 @@ export default function SlideProgressButton({
     >
       <div className="relative flex h-[138px] w-[138px] items-center justify-center border border-[#EEF4F9] p-6">
         {nextImage && (
-          <div className="relative flex h-[97px] w-[97px] items-center justify-center overflow-hidden">
-            <Image
-              src={nextImage}
-              alt="Next slide thumbnail"
-              objectFit="cover"
-              width={97}
-              height={97}
-              priority
-              unoptimized
-            />
-          </div>
+          <>
+            <div className="relative flex h-[97px] w-[97px] items-center justify-center overflow-hidden">
+              <AnimatePresence>
+                <motion.div
+                  key={activeIndex}
+                  initial={{ clipPath: "inset(40% 0% 40% 0%)" }}
+                  animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  className="absolute inset-0 z-20"
+                >
+                  <img
+                    src={nextImage}
+                    alt={"title"}
+                    className="h-full w-full object-cover"
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </>
         )}
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-sm font-semibold text-white select-none">
