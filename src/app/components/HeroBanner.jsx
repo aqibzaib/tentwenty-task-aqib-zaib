@@ -8,6 +8,7 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SlideProgressButton from "./SlideProgressButton"; // <- Import here
 import SlideDetails from "./SlideDetails";
+import SlideWithProgress from "./SlideWithProgress";
 
 const slides = [
   {
@@ -77,6 +78,12 @@ export default function HeroBanner() {
   const handleNext = () => {
     if (animating) return; // Prevent multiple calls
     if (swiperRef.current) swiperRef.current.slideNext();
+  };
+
+  const goNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
   };
 
   function onSlideChange(swiper) {
@@ -170,16 +177,12 @@ export default function HeroBanner() {
         ))}
       </Swiper>
 
-      {/* Slide Control Button */}
-      <SlideProgressButton
-        key={activeIndex}
-        onNext={handleNext}
+      <SlideWithProgress
+        onNext={goNext}
+        duration={5000}
         activeIndex={activeIndex}
         slides={slides}
-        duration={5000}
       />
-  
-      <SlideDetails />
     </div>
   );
 }

@@ -63,7 +63,7 @@ export default function SlideProgressButton({
   return (
     <section
       onClick={handleClick}
-      className={`group absolute right-8 bottom-8 z-50 cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
+      className={`group  cursor-pointer ${disabled ? "pointer-events-none opacity-50" : ""}`}
       aria-label="Next Slide"
     >
       <div className="relative flex items-center justify-center p-6">
