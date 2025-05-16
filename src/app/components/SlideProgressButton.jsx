@@ -50,7 +50,7 @@ export default function SlideProgressButton({
   };
 
   return (
-    <button
+    <section
       onClick={handleClick}
       className="group absolute right-8 bottom-8 z-50"
       aria-label="Next Slide"
@@ -80,12 +80,15 @@ export default function SlideProgressButton({
             </AnimatePresence>
           </div>
         )}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-sm font-semibold text-white select-none">
+        <div className="absolute inset-0 z-70 flex flex-col items-center justify-center">
+          <button
+            className="font-work-sans cursor-pointer text-[16px] leading-[110%] font-normal tracking-[0px] text-[#EEF4F9] select-none"
+            onClick={handleClick}
+          >
             Next
-          </span>
+          </button>
         </div>
       </div>
-    </button>
+    </section>
   );
 }
