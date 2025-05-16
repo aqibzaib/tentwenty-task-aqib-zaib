@@ -46,12 +46,6 @@ const slides = [
   },
 ];
 
-const textVariants = {
-  initial: { opacity: 0, y: 50 },
-  animate: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
-  exit: { opacity: 0, y: -50, transition: { duration: 0.8, ease: "easeIn" } },
-};
-
 export default function HeroBanner() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(null);
@@ -103,79 +97,49 @@ export default function HeroBanner() {
                   src={image}
                   alt={title}
                   initial={false}
-                  animate={{ scaleY: 1, scaleX: 1 }}
+                  animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute inset-0 z-10 h-full w-full origin-center object-cover"
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="absolute inset-0 z-10 h-full w-full object-cover"
                 />
               )}
             </AnimatePresence>
 
-            {/* Current slide image */}
+            {/* Active slide with clip reveal */}
             <AnimatePresence>
               {activeIndex === index && (
-                <motion.img
+                <motion.div
                   key={"active-" + id}
-                  src={image}
-                  alt={title}
-                  initial={
-                    firstLoad.current && index === 0
-                      ? false
-                      : { scaleY: 0.3, scaleX: 1, opacity: 1 }
-                  }
-                  animate={{ scaleY: 1, scaleX: 1, opacity: 1 }}
+                  initial={{ clipPath: "inset(40% 0% 40% 0%)" }}
+                  animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
                   exit={{ opacity: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 40,
-                    damping: 30,
-                    mass: 1,
-                    opacity: { duration: 1, ease: "linear" },
-                  }}
-                  className="absolute inset-0 z-20 h-full w-full origin-center object-cover"
-                />
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  className="absolute inset-0 z-20"
+                >
+                  <img
+                    src={image}
+                    alt={title}
+                    className="h-full w-full object-cover"
+                  />
+                </motion.div>
               )}
             </AnimatePresence>
 
+            {/* Overlay */}
             <div className="absolute inset-0 z-30 bg-black/30" />
 
-            {/* <div className="relative z-40 flex h-full items-center justify-center">
-              <motion.div
-                key={id + "-text"}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={textVariants}
-                className="max-w-3xl px-4 text-center"
-              >
-                <motion.h1
-                  className="mb-4 text-5xl font-bold text-white"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
-                >
-                  {title}
-                </motion.h1>
-
-                <motion.p
-                  className="mb-8 text-xl text-white"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 1, ease: "easeOut" }}
-                >
-                  {subtitle}
-                </motion.p>
-
-                <motion.button
-                  className="rounded bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
-                >
+            {/* Optional text */}
+            {/* 
+            <div className="relative z-40 flex h-full items-center justify-center">
+              <div className="max-w-3xl px-4 text-center">
+                <h1 className="mb-4 text-5xl font-bold text-white">{title}</h1>
+                <p className="mb-8 text-xl text-white">{subtitle}</p>
+                <button className="rounded bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-200">
                   Contact Us
-                </motion.button>
-              </motion.div>
-            </div> */}
+                </button>
+              </div>
+            </div>
+            */}
           </div>
         </SwiperSlide>
       ))}
