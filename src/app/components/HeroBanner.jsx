@@ -121,7 +121,7 @@ export default function HeroBanner() {
                   initial={
                     firstLoad.current && index === 0
                       ? false
-                      : { scaleY: 0.2, scaleX: 1, opacity: 1 }
+                      : { scaleY: 0.3, scaleX: 1, opacity: 1 }
                   }
                   animate={{ scaleY: 1, scaleX: 1, opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -130,7 +130,7 @@ export default function HeroBanner() {
                     stiffness: 40,
                     damping: 30,
                     mass: 1,
-                    opacity: { duration: 1, ease: "easeInOut" },
+                    opacity: { duration: 1, ease: "linear" },
                   }}
                   className="absolute inset-0 z-20 h-full w-full origin-center object-cover"
                 />
